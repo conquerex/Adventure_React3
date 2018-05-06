@@ -1,26 +1,30 @@
 var express = require('express');
 var app = express();
+var user = require('./routes/user');
 
-app.get('/', function(req, res) {
-    res.send('Hello World!!!! :)');
-});
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
 
-app.get('/user/:id', function(req, res) {
-    res.send('Received a GET request, param:' + req.params.id);
-});
+/**
+ * Middle Ware sample
+ */
+// var myLogger = function(req, res, next) {
+//     console.log(req.url);
+//     next();
+// };
 
-app.post('/user', function(req, res) {
-    res.json({ success: true })
-});
+// app.use(myLogger);
 
-app.put('/user', function(req, res) {
-    res.status(400).json({ message : 'Hey, you. Bad request!!!'});
-});
+// Log middle ware
+app.use(morgan('dev'));
 
-app.delete('/user', function(req, res) {
-    res.send('Received a DELETE request');
-});
+// Json parsing middle ware
+app.use(bodyParser.json());
+
+app.use('/', express.static('public'));
+
+app.use('/user', user);
 
 app.listen(3000, function() {
-    console.log('Example App is listening on port 3000!!!')
+    console.log('Example App is listening on port 3000');
 });
