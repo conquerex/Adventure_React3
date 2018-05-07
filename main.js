@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
  * Middle Ware sample
  */
 // var myLogger = function(req, res, next) {
-//     console.log(req.url);
+//     console.log(req.url);ing on port 30
 //     next();
 // };
 
@@ -21,10 +21,14 @@ app.use(morgan('dev'));
 // Json parsing middle ware
 app.use(bodyParser.json());
 
+// Static file
 app.use('/', express.static('public'));
+// app.use('/', function(req, res) {
+//     res.send('Hello world!!!');
+// });
 
 app.use('/user', user);
 
 app.listen(3000, function() {
-    console.log('Example App is listening on port 3000');
+    console.log('Example App is listening on port 3000!!!');
 });
